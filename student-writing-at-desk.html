@@ -46,10 +46,31 @@
 </head>
 <body>
     <div class="container">
-        <h1>Student Writing at Desk</h1>
-        <img src="https://cdn.langeek.co/photo/49183/original/homework?type=jpeg" alt="Student Writing at Desk" class="detail-image">
-        <p class="description">A clean vector illustration of a young boy with short gray hair, wearing a light mint-green t-shirt over purple long sleeves. He is leaning forward over a wooden desk, focused intently as he writes with a pen in an open lined notebook.</p>
+        <h1 id="ai-title">Loading...</h1>
+        <img src="https://cdn.langeek.co/photo/49183/original/homework?type=jpeg" alt="Image" class="detail-image">
+        <p id="ai-description">Generating description from AI...</p>
         <a href="index.html" class="back-link">← Back to Gallery</a>
     </div>
+    <script>
+      async function loadDescription() {
+        const img = document.querySelector('.detail-image');
+        const titleEl = document.getElementById('ai-title');
+        const descEl = document.getElementById('ai-description');
+        
+        try {
+          const response = await fetch(`/api/describe?imageUrl=${encodeURIComponent(img.src)}`);
+          const data = await response.json();
+          
+          titleEl.textContent = data.title || "Untitled";
+          descEl.textContent = data.description || "No description available.";
+        } catch (err) {
+          titleEl.textContent = "Error";
+          descEl.textContent = "Could not load AI description. The server may not be running.";
+          console.error('API Error:', err);
+        }
+      }
+      
+      document.addEventListener('DOMContentLoaded', loadDescription);
+    </script>
 </body>
 </html>
