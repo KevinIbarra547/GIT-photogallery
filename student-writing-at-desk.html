@@ -46,10 +46,46 @@
 </head>
 <body>
     <div class="container">
-        <h1>Student Writing at Desk</h1>
-        <img src="https://cdn.langeek.co/photo/49183/original/homework?type=jpeg" alt="Student Writing at Desk" class="detail-image">
-        <p class="description">A clean vector illustration of a young boy with short gray hair, wearing a light mint-green t-shirt over purple long sleeves. He is leaning forward over a wooden desk, focused intently as he writes with a pen in an open lined notebook.</p>
+        <h1 id="ai-title">Loading...</h1>
+        <img src="https://cdn.langeek.co/photo/49183/original/homework?type=jpeg" alt="Image" class="detail-image">
+        <p id="ai-description">Generating description...</p>
         <a href="index.html" class="back-link">← Back to Gallery</a>
     </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', async () => {
+        const img = document.querySelector('.detail-image');
+        const titleEl = document.getElementById('ai-title');
+        const descEl = document.getElementById('ai-description');
+        
+        try {
+          const response = await fetch('https://api.groq.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${window.GROQ_API_KEY}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              model: "llama-3.1-70b-versatile",
+              messages: [{
+                role: "user",
+                content: `Describe this image in 2-3 sentences and give it a short title. Image URL: ${img.src}`
+              }],
+              temperature: 0.7,
+              max_tokens: 200,
+            }),
+          });
+          const data = await response.json();
+          const content = data.choices[0].message.content;
+          
+          const lines = content.split('\n').filter(l => l.trim());
+          titleEl.textContent = lines[0] || "Untitled";
+          descEl.textContent = lines.slice(1).join(' ') || "No description available.";
+        } catch (err) {
+          titleEl.textContent = "Error";
+          descEl.textContent = "Could not load description.";
+          console.error(err);
+        }
+      });
+    </script>
 </body>
 </html>
