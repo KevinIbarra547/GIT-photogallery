@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photo Gallery</title>
+    <title>Car Gallery</title>
     <style>
         * {
             box-sizing: border-box;
@@ -12,27 +12,47 @@
         }
         body {
             font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+            background-color: #222;
             padding: 20px;
         }
         .container {
             max-width: 1200px;
             margin: 0 auto;
         }
+        h1 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .row-title {
+            text-align: center;
+            color: #aaa;
+            margin: 20px 0 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
         .grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
+            margin-bottom: 40px;
         }
         .card {
-            background: white;
+            background: #333;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid #444;
         }
         .card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            border-color: #666;
         }
         .card-img {
             width: 100%;
@@ -44,6 +64,8 @@
             text-align: center;
             font-size: 1.2rem;
             font-weight: bold;
+            color: #fff;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.9));
         }
         @media (max-width: 768px) {
             .grid {
@@ -59,48 +81,75 @@
 </head>
 <body>
     <div class="container">
-        <h1 style="text-align: center; margin-bottom: 20px;">Photo Gallery</h1>
+        <h1>Car Gallery</h1>
+        
+        <!-- Row 1: Plain Cars -->
+        <div class="row-title">Plain Cars</div>
         <div class="grid">
-            <a href="serene-alpine-lake-vista.html" style="text-decoration: none; color: inherit;">
+            <a href="toyota-camry.html" style="text-decoration: none; color: inherit;">
                 <div class="card">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFHuv3ahjN3YsvXUD6conJtnqO5QlzW3uXuqRUXqFQNK3yqdxaCj-ceClS&s=10" alt="Serene Alpine Lake Vista" class="card-img">
-                    <div class="card-title">Serene Alpine Lake Vista</div>
+                    <img src="https://cdn.motor1.com/images/mgl/09JQV/s3/toyota-camry-2025.webp" alt="Toyota Camry" class="card-img">
+                    <div class="card-title">Toyota Camry</div>
                 </div>
             </a>
-            <div class="card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKRyzzog1DNrV7hpE6A8AZFb7yoyO3YMixsY9D_DZ9p3AfY2RKp4H9u8CL&s=10" alt="Pizza" class="card-img">
-                <div class="card-title">Pizza</div>
-            </div>
-            <a href="student-writing-at-desk.html" style="text-decoration: none; color: inherit;">
+            <a href="honda-civic.html" style="text-decoration: none; color: inherit;">
                 <div class="card">
-                    <img src="https://image.shutterstock.com/image-vector/modern-school-building-bus-flat-260nw-2664881731.jpg" alt="Student Writing at Desk" class="card-img">
-                    <div class="card-title">Student Writing at Desk</div>
+                    <img src="https://cdn.motor1.com/images/mgl/64O3V/s3/2024-honda-civic-sedan.webp" alt="Honda Civic" class="card-img">
+                    <div class="card-title">Honda Civic</div>
                 </div>
             </a>
-            <div class="card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmroO_V971lKbLYuLgKCUwSQvl8A4i138ImXXK28po8H5lnl7bj3a7qxMr&s=10" alt="Sushi" class="card-img">
-                <div class="card-title">Sushi</div>
-            </div>
-            <div class="card">
-                <img src="https://wp.internationaltraveller.com/wp-content/uploads/2018/04/IT_2018APR18_HelloworldQantas3.jpg?quality=80&w=640" alt="Airplane" class="card-img">
-                <div class="card-title">Airplane</div>
-            </div>
-            <div class="card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNaVeaSsH7TXNgJOFSZQoFx6tNLj_uWOwe4yOJRHh9XpHbMveGPPObKNf2&s=10" alt="Mountain" class="card-img">
-                <div class="card-title">Mountain</div>
-            </div>
-            <div class="card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKZRFHb9GpLGigNU-KHEO_j28bWCXvo4Usuq710fU7FHSv8yC_mWYRZg8&s=10" alt="Beach" class="card-img">
-                <div class="card-title">Beach</div>
-            </div>
-            <div class="card">
-                <img src="https://californiahighsierra.com/wp-content/uploads/2024/04/birdsonMonoLake_AdobeStock_344739971.jpeg" alt="Birds at Mono Lake" class="card-img">
-                <div class="card-title">Birds at Mono Lake</div>
-            </div>
-            <div class="card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXfpUPUWZHXnBxgxEt0NXRV3iqwTh1JjuudDRZpE34dzW6bSg-zbhm9p4&s=10" alt="Forest" class="card-img">
-                <div class="card-title">Forest</div>
-            </div>
+            <a href="ford-mustang.html" style="text-decoration: none; color: inherit;">
+                <div class="card">
+                    <img src="https://cdn.motor1.com/images/mgl/29q8V/s3/2024-ford-mustang-gt.webp" alt="Ford Mustang" class="card-img">
+                    <div class="card-title">Ford Mustang</div>
+                </div>
+            </a>
+        </div>
+        
+        <!-- Row 2: Luxury Cars -->
+        <div class="row-title">Luxury Cars</div>
+        <div class="grid">
+            <a href="bugatti-chiron.html" style="text-decoration: none; color: inherit;">
+                <div class="card">
+                    <img src="https://cdn.motor1.com/images/mgl/29q8V/s3/bugatti-chiron-super-sport.webp" alt="Bugatti Chiron" class="card-img">
+                    <div class="card-title">Bugatti Chiron</div>
+                </div>
+            </a>
+            <a href="lamborghini-aventador.html" style="text-decoration: none; color: inherit;">
+                <div class="card">
+                    <img src="https://cdn.motor1.com/images/mgl/29q8V/s3/lamborghini-aventador-ultimae.webp" alt="Lamborghini Aventador" class="card-img">
+                    <div class="card-title">Lamborghini Aventador</div>
+                </div>
+            </a>
+            <a href="ferrari-sf90.html" style="text-decoration: none; color: inherit;">
+                <div class="card">
+                    <img src="https://cdn.motor1.com/images/mgl/29q8V/s3/ferrari-sf90-stradale.webp" alt="Ferrari SF90 Stradale" class="card-img">
+                    <div class="card-title">Ferrari SF90 Stradale</div>
+                </div>
+            </a>
+        </div>
+        
+        <!-- Row 3: Vintage Cars -->
+        <div class="row-title">Vintage Cars</div>
+        <div class="grid">
+            <a href="ford-model-t.html" style="text-decoration: none; color: inherit;">
+                <div class="card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/1925_Ford_Model_T_Touring.jpg/1200px-1925_Ford_Model_T_Touring.jpg" alt="Ford Model T" class="card-img">
+                    <div class="card-title">Ford Model T</div>
+                </div>
+            </a>
+            <a href="chevrolet-bel-air.html" style="text-decoration: none; color: inherit;">
+                <div class="card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/1957_Chevrolet_Bel_Air_4-door_hardtop.jpg/1200px-1957_Chevrolet_Bel_Air_4-door_hardtop.jpg" alt="Chevrolet Bel Air" class="card-img">
+                    <div class="card-title">Chevrolet Bel Air</div>
+                </div>
+            </a>
+            <a href="volkswagen-beetle.html" style="text-decoration: none; color: inherit;">
+                <div class="card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/De_Nieuwe_VW_Kever_%28Volkswagen_Beetle%29_-_Flickr_-_exfordy.jpg/1200px-De_Nieuwe_VW_Kever_%28Volkswagen_Beetle%29_-_Flickr_-_exfordy.jpg" alt="Volkswagen Beetle" class="card-img">
+                    <div class="card-title">Volkswagen Beetle</div>
+                </div>
+            </a>
         </div>
     </div>
 </body>

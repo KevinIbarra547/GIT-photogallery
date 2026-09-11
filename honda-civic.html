@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Serene Alpine Lake Vista</title>
+    <title>Honda Civic</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -47,7 +47,7 @@
 <body>
     <div class="container">
         <h1 id="ai-title">Loading...</h1>
-        <img src="https://www.travelandleisure.com/thmb/QbkeC6xy9WjttZmm3Qtriq-d1tU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/TAL-Big-Sur-CAPLACES0323-564987dcbc364b658364e51cc250947a.jpg" alt="Image" class="detail-image">
+        <img src="https://cdn.motor1.com/images/mgl/64O3V/s3/2024-honda-civic-sedan.webp" alt="Honda Civic" class="detail-image">
         <p id="ai-description">Generating description from AI...</p>
         <a href="index.html" class="back-link">\u2190 Back to Gallery</a>
     </div>
@@ -56,23 +56,54 @@
 
       function getImageKeyFromUrl(url) {
         const filename = url.split('/').pop().split('?')[0].toLowerCase();
-        if (filename.includes('serene') || filename.includes('alpine') || filename.includes('lake') || filename.includes('vista') || filename.includes('big-sur')) {
-          return 'serene-alpine-lake-vista';
-        }
-        if (filename.includes('student') || filename.includes('writing') || filename.includes('desk') || filename.includes('homework')) {
-          return 'student-writing-at-desk';
-        }
+        if (filename.includes('camry')) return 'toyota-camry';
+        if (filename.includes('civic')) return 'honda-civic';
+        if (filename.includes('mustang')) return 'ford-mustang';
+        if (filename.includes('chiron') || filename.includes('bugatti')) return 'bugatti-chiron';
+        if (filename.includes('aventador') || filename.includes('lamborghini')) return 'lamborghini-aventador';
+        if (filename.includes('ferrari') || filename.includes('sf90')) return 'ferrari-sf90';
+        if (filename.includes('model-t') || filename.includes('ford-model')) return 'ford-model-t';
+        if (filename.includes('bel-air') || filename.includes('chevrolet-bel')) return 'chevrolet-bel-air';
+        if (filename.includes('beetle') || filename.includes('volkswagen')) return 'volkswagen-beetle';
         return null;
       }
 
       const fallbackDescriptions = {
-        'serene-alpine-lake-vista': {
-          title: 'Serene Alpine Lake Vista',
-          description: 'A breathtaking view of a crystal-clear alpine lake surrounded by majestic snow-capped mountains. The mirror-like water reflects the towering peaks and the vibrant blue sky above.'
+        'toyota-camry': {
+          title: 'Toyota Camry',
+          description: 'The Toyota Camry is a reliable and popular midsize sedan known for its comfortable ride, fuel efficiency, and practical design.'
         },
-        'student-writing-at-desk': {
-          title: 'Student Writing at Desk',
-          description: 'A focused student sitting at a wooden desk, diligently writing in a notebook. The scene captures the essence of learning and concentration in a quiet study environment.'
+        'honda-civic': {
+          title: 'Honda Civic',
+          description: 'The Honda Civic is a compact car renowned for its sporty handling, excellent fuel economy, and modern styling.'
+        },
+        'ford-mustang': {
+          title: 'Ford Mustang',
+          description: 'The Ford Mustang is an iconic American muscle car with powerful performance, bold styling, and a legendary driving experience.'
+        },
+        'bugatti-chiron': {
+          title: 'Bugatti Chiron',
+          description: 'The Bugatti Chiron is a hypercar representing the pinnacle of automotive engineering, with a quad-turbo W16 engine producing over 1,500 horsepower.'
+        },
+        'lamborghini-aventador': {
+          title: 'Lamborghini Aventador',
+          description: 'The Lamborghini Aventador is a flagship supercar with a roaring V12 engine, sharp angular design, and scissor doors that define exotic automotive luxury.'
+        },
+        'ferrari-sf90': {
+          title: 'Ferrari SF90 Stradale',
+          description: 'The Ferrari SF90 Stradale is a plug-in hybrid supercar combining a twin-turbo V8 with electric motors for breathtaking acceleration and cutting-edge technology.'
+        },
+        'ford-model-t': {
+          title: 'Ford Model T',
+          description: 'The Ford Model T was the first affordable automobile, revolutionizing transportation in the early 20th century with its simple, durable design.'
+        },
+        'chevrolet-bel-air': {
+          title: 'Chevrolet Bel Air',
+          description: 'The Chevrolet Bel Air is a classic American car from the 1950s, known for its chrome accents, tail fins, and timeless retro styling.'
+        },
+        'volkswagen-beetle': {
+          title: 'Volkswagen Beetle',
+          description: 'The Volkswagen Beetle is an iconic compact car with a distinctive rounded shape, rear-engine layout, and a cultural legacy spanning decades.'
         }
       };
 
@@ -131,15 +162,14 @@
             return;
           }
           
-          // Fallback to static description
           const imageKey = getImageKeyFromUrl(img.src);
           const fallback = imageKey ? fallbackDescriptions[imageKey] : null;
           if (fallback) {
             titleEl.textContent = fallback.title;
             descEl.textContent = fallback.description;
           } else {
-            titleEl.textContent = "Serene Alpine Lake Vista";
-            descEl.textContent = "A breathtaking view of a crystal-clear alpine lake surrounded by majestic snow-capped mountains.";
+            titleEl.textContent = "Honda Civic";
+            descEl.textContent = "The Honda Civic is a compact car renowned for its sporty handling, excellent fuel economy, and modern styling.";
           }
         } catch (err) {
           console.error('API Error:', err);
@@ -150,8 +180,8 @@
             titleEl.textContent = fallback.title;
             descEl.textContent = fallback.description;
           } else {
-            titleEl.textContent = "Serene Alpine Lake Vista";
-            descEl.textContent = "A breathtaking view of a crystal-clear alpine lake surrounded by majestic snow-capped mountains.";
+            titleEl.textContent = "Honda Civic";
+            descEl.textContent = "The Honda Civic is a compact car renowned for its sporty handling, excellent fuel economy, and modern styling.";
           }
         }
       }
