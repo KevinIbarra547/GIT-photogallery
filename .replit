@@ -1,4 +1,4 @@
-modules = ["web", "nodejs-20"]
+modules = ["web", "python-base-3.13"]
 
 [nix]
 channel = "stable-25_05"
@@ -24,12 +24,12 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "npm install && node server.js"
-waitForPort = 3000
+args = "python3 -m http.server 5000 --bind 0.0.0.0"
+waitForPort = 5000
 
 [workflows.workflow.metadata]
 outputType = "webview"
 
 [[ports]]
-localPort = 3000
+localPort = 5000
 externalPort = 80

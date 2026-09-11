@@ -52,6 +52,8 @@
         <a href="index.html" class="back-link">\u2190 Back to Gallery</a>
     </div>
     <script>
+      const GROQ_API_KEY = 'gsk_YOUR_GROQ_API_KEY_HERE';
+
       function getImageKeyFromUrl(url) {
         const filename = url.split('/').pop().split('?')[0].toLowerCase();
         if (filename.includes('serene') || filename.includes('alpine') || filename.includes('lake') || filename.includes('vista') || filename.includes('big-sur')) {
@@ -80,11 +82,65 @@
         const descEl = document.getElementById('ai-description');
         
         try {
-          const response = await fetch(`/api/describe?imageUrl=${encodeURIComponent(img.src)}`);
+          const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${GROQ_API_KEY}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              model: "llama-3.2-11b-vision-preview",
+              messages: [{
+                role: "user",
+                content: [
+                  {
+                    type: "image_url",
+                    image_url: { url: img.src }
+                  },
+                  {
+                    type: "text",
+                    text: "Create a short, creative title (3-5 words) and a vivid description (2-3 sentences) for this image. Return ONLY a valid JSON object with exactly this format: {\"title\": \"your title here\", \"description\": \"your description here\"}. Do not include any other text, markdown, or code blocks."
+                  }
+                ]
+              }],
+              temperature: 0.8,
+              max_tokens: 150,
+            }),
+          });
+
           const data = await response.json();
           
-          titleEl.textContent = data.title || "Untitled";
-          descEl.textContent = data.description || "No description available.";
+          if (data.choices && data.choices[0]) {
+            const content = data.choices[0].message.content;
+            const jsonMatch = content.match(/\{[\s\S]*\}/);
+            if (jsonMatch) {
+              try {
+                const parsed = JSON.parse(jsonMatch[0]);
+                if (parsed.title && parsed.description) {
+                  titleEl.textContent = parsed.title;
+                  descEl.textContent = parsed.description;
+                  return;
+                }
+              } catch (e) {
+                console.log("JSON parse error:", e);
+              }
+            }
+            const lines = content.split('\n').filter(l => l.trim());
+            titleEl.textContent = lines[0] || "Untitled Image";
+            descEl.textContent = lines.slice(1).join(' ') || "A beautiful image from the gallery.";
+            return;
+          }
+          
+          // Fallback to static description
+          const imageKey = getImageKeyFromUrl(img.src);
+          const fallback = imageKey ? fallbackDescriptions[imageKey] : null;
+          if (fallback) {
+            titleEl.textContent = fallback.title;
+            descEl.textContent = fallback.description;
+          } else {
+            titleEl.textContent = "Serene Alpine Lake Vista";
+            descEl.textContent = "A breathtaking view of a crystal-clear alpine lake surrounded by majestic snow-capped mountains.";
+          }
         } catch (err) {
           console.error('API Error:', err);
           const imageKey = getImageKeyFromUrl(img.src);
@@ -95,7 +151,7 @@
             descEl.textContent = fallback.description;
           } else {
             titleEl.textContent = "Serene Alpine Lake Vista";
-            descEl.textContent = "A breathtaking view of a crystal-clear alpine lake surrounded by majestic snow-capped mountains. The mirror-like water reflects the towering peaks and the vibrant blue sky above.";
+            descEl.textContent = "A breathtaking view of a crystal-clear alpine lake surrounded by majestic snow-capped mountains.";
           }
         }
       }
