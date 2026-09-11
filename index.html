@@ -4,80 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Car Gallery</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #222;
-            padding: 20px;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        h1 {
-            text-align: center;
-            color: #fff;
-            margin-bottom: 30px;
-            font-size: 2.5rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        .row-title {
-            text-align: center;
-            color: #aaa;
-            margin: 20px 0 15px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-        .card {
-            background: #333;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 2px solid #444;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-            border-color: #666;
-        }
-        .card-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        .card-title {
-            padding: 15px;
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #fff;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.9));
-        }
-        @media (max-width: 768px) {
-            .grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        @media (max-width: 480px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
@@ -88,19 +15,19 @@
         <div class="grid">
             <a href="toyota-camry.html" style="text-decoration: none; color: inherit;">
                 <div class="card">
-                    <img src="https://cdn.motor1.com/images/mgl/09JQV/s3/toyota-camry-2025.webp" alt="Toyota Camry" class="card-img">
+                    <img src="assets/cars/toyota-camry.jpg" alt="Toyota Camry" class="card-img">
                     <div class="card-title">Toyota Camry</div>
                 </div>
             </a>
             <a href="honda-civic.html" style="text-decoration: none; color: inherit;">
                 <div class="card">
-                    <img src="https://cdn.motor1.com/images/mgl/64O3V/s3/2024-honda-civic-sedan.webp" alt="Honda Civic" class="card-img">
+                    <img src="assets/cars/honda-civic.jpg" alt="Honda Civic" class="card-img">
                     <div class="card-title">Honda Civic</div>
                 </div>
             </a>
             <a href="ford-mustang.html" style="text-decoration: none; color: inherit;">
                 <div class="card">
-                    <img src="https://cdn.motor1.com/images/mgl/29q8V/s3/2024-ford-mustang-gt.webp" alt="Ford Mustang" class="card-img">
+                    <img src="assets/cars/ford-mustang.jpg" alt="Ford Mustang" class="card-img">
                     <div class="card-title">Ford Mustang</div>
                 </div>
             </a>
@@ -111,19 +38,19 @@
         <div class="grid">
             <a href="bugatti-chiron.html" style="text-decoration: none; color: inherit;">
                 <div class="card">
-                    <img src="https://cdn.motor1.com/images/mgl/29q8V/s3/bugatti-chiron-super-sport.webp" alt="Bugatti Chiron" class="card-img">
+                    <img src="assets/cars/bugatti-chiron.jpg" alt="Bugatti Chiron" class="card-img">
                     <div class="card-title">Bugatti Chiron</div>
                 </div>
             </a>
             <a href="lamborghini-aventador.html" style="text-decoration: none; color: inherit;">
                 <div class="card">
-                    <img src="https://cdn.motor1.com/images/mgl/29q8V/s3/lamborghini-aventador-ultimae.webp" alt="Lamborghini Aventador" class="card-img">
+                    <img src="assets/cars/lamborghini-aventador.jpg" alt="Lamborghini Aventador" class="card-img">
                     <div class="card-title">Lamborghini Aventador</div>
                 </div>
             </a>
             <a href="ferrari-sf90.html" style="text-decoration: none; color: inherit;">
                 <div class="card">
-                    <img src="https://cdn.motor1.com/images/mgl/29q8V/s3/ferrari-sf90-stradale.webp" alt="Ferrari SF90 Stradale" class="card-img">
+                    <img src="assets/cars/ferrari-sf90.jpg" alt="Ferrari SF90 Stradale" class="card-img">
                     <div class="card-title">Ferrari SF90 Stradale</div>
                 </div>
             </a>
@@ -134,19 +61,19 @@
         <div class="grid">
             <a href="ford-model-t.html" style="text-decoration: none; color: inherit;">
                 <div class="card">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/1925_Ford_Model_T_Touring.jpg/1200px-1925_Ford_Model_T_Touring.jpg" alt="Ford Model T" class="card-img">
+                    <img src="assets/cars/ford-model-t.jpg" alt="Ford Model T" class="card-img">
                     <div class="card-title">Ford Model T</div>
                 </div>
             </a>
             <a href="chevrolet-bel-air.html" style="text-decoration: none; color: inherit;">
                 <div class="card">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/1957_Chevrolet_Bel_Air_4-door_hardtop.jpg/1200px-1957_Chevrolet_Bel_Air_4-door_hardtop.jpg" alt="Chevrolet Bel Air" class="card-img">
+                    <img src="assets/cars/chevrolet-bel-air.jpg" alt="Chevrolet Bel Air" class="card-img">
                     <div class="card-title">Chevrolet Bel Air</div>
                 </div>
             </a>
             <a href="volkswagen-beetle.html" style="text-decoration: none; color: inherit;">
                 <div class="card">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/De_Nieuwe_VW_Kever_%28Volkswagen_Beetle%29_-_Flickr_-_exfordy.jpg/1200px-De_Nieuwe_VW_Kever_%28Volkswagen_Beetle%29_-_Flickr_-_exfordy.jpg" alt="Volkswagen Beetle" class="card-img">
+                    <img src="assets/cars/volkswagen-beetle.jpg" alt="Volkswagen Beetle" class="card-img">
                     <div class="card-title">Volkswagen Beetle</div>
                 </div>
             </a>
