@@ -49,9 +49,31 @@
         <h1 id="ai-title">Loading...</h1>
         <img src="https://cdn.langeek.co/photo/49183/original/homework?type=jpeg" alt="Image" class="detail-image">
         <p id="ai-description">Generating description from AI...</p>
-        <a href="index.html" class="back-link">← Back to Gallery</a>
+        <a href="index.html" class="back-link">\u2190 Back to Gallery</a>
     </div>
     <script>
+      function getImageKeyFromUrl(url) {
+        const filename = url.split('/').pop().split('?')[0].toLowerCase();
+        if (filename.includes('serene') || filename.includes('alpine') || filename.includes('lake') || filename.includes('vista') || filename.includes('big-sur')) {
+          return 'serene-alpine-lake-vista';
+        }
+        if (filename.includes('student') || filename.includes('writing') || filename.includes('desk') || filename.includes('homework')) {
+          return 'student-writing-at-desk';
+        }
+        return null;
+      }
+
+      const fallbackDescriptions = {
+        'serene-alpine-lake-vista': {
+          title: 'Serene Alpine Lake Vista',
+          description: 'A breathtaking view of a crystal-clear alpine lake surrounded by majestic snow-capped mountains. The mirror-like water reflects the towering peaks and the vibrant blue sky above.'
+        },
+        'student-writing-at-desk': {
+          title: 'Student Writing at Desk',
+          description: 'A focused student sitting at a wooden desk, diligently writing in a notebook. The scene captures the essence of learning and concentration in a quiet study environment.'
+        }
+      };
+
       async function loadDescription() {
         const img = document.querySelector('.detail-image');
         const titleEl = document.getElementById('ai-title');
@@ -64,9 +86,17 @@
           titleEl.textContent = data.title || "Untitled";
           descEl.textContent = data.description || "No description available.";
         } catch (err) {
-          titleEl.textContent = "Error";
-          descEl.textContent = "Could not load AI description. The server may not be running.";
           console.error('API Error:', err);
+          const imageKey = getImageKeyFromUrl(img.src);
+          const fallback = imageKey ? fallbackDescriptions[imageKey] : null;
+          
+          if (fallback) {
+            titleEl.textContent = fallback.title;
+            descEl.textContent = fallback.description;
+          } else {
+            titleEl.textContent = "Student Writing at Desk";
+            descEl.textContent = "A focused student sitting at a wooden desk, diligently writing in a notebook. The scene captures the essence of learning and concentration in a quiet study environment.";
+          }
         }
       }
       
