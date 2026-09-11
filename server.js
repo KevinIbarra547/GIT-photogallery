@@ -1,9 +1,14 @@
+require('dotenv').config();
 const express = require('express');
 const fetch = require('node-fetch');
 const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Enable CORS
+const cors = require('cors');
+app.use(cors());
 
 // Serve all static files from the current directory
 app.use(express.static(path.join(__dirname, '.')));
