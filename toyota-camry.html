@@ -10,10 +10,68 @@
     <main class="detail-page">
         <article class="detail-card">
             <h1>Toyota Camry</h1>
-            <img src="assets/cars/toyota-camry.jpg" alt="Toyota Camry" class="detail-image">
+            <img src="assets/cars/toyota-camry.jpg" alt="Toyota Camry" class="detail-image" id="car-image">
             <p class="description">The Toyota Camry is a reliable and popular midsize sedan known for its comfortable ride, fuel efficiency, and practical design.</p>
-            <a href="./index.html" class="back-link">← Back to Car Gallery</a>
+            
+            <div class="enhancement-controls">
+                <label for="enhance-mode" class="enhance-label">AI Image Enhancement:</label>
+                <select id="enhance-mode" class="enhance-select">
+                    <option value="">Select a Style</option>
+                    <option value="dark">Dark Mode</option>
+                    <option value="light">Light Mode</option>
+                    <option value="modern">Modern Mode</option>
+                    <option value="old">Old Mode</option>
+                </select>
+                <button onclick="applyEnhancement()" class="enhance-button">Apply AI Enhancement</button>
+            </div>
+            <p id="enhancement-desc" class="enhancement-description"></p>
+            
+            <a href="./index.html" class="back-link"> Back to Car Gallery</a>
         </article>
     </main>
+    
+    <script>
+        async function applyEnhancement() {
+            const mode = document.getElementById('enhance-mode').value;
+            const carName = document.querySelector('h1').textContent;
+            const img = document.getElementById('car-image');
+            const descElement = document.getElementById('enhancement-desc');
+
+            if (!mode) {
+                descElement.textContent = 'Please select an enhancement mode.';
+                descElement.style.color = '#d32f2f';
+                return;
+            }
+
+            descElement.textContent = 'Loading AI enhancement...';
+            descElement.style.color = '#444';
+
+            try {
+                const response = await fetch(`/api/enhance?car=${encodeURIComponent(carName)}&mode=${mode}`);
+                const data = await response.json();
+
+                if (data.filter) {
+                    img.style.filter = data.filter;
+                    img.style.transition = 'filter 0.5s ease';
+                }
+                if (data.description) {
+                    descElement.textContent = data.description;
+                    descElement.style.color = '#444';
+                }
+            } catch (err) {
+                descElement.textContent = 'Failed to load enhancement. Using fallback.';
+                descElement.style.color = '#d32f2f';
+                console.error('Enhancement error:', err);
+            }
+        }
+
+        document.getElementById('enhance-mode').addEventListener('change', function() {
+            if (this.value === '') {
+                const img = document.getElementById('car-image');
+                img.style.filter = 'none';
+                document.getElementById('enhancement-desc').textContent = '';
+            }
+        });
+    </script>
 </body>
 </html>

@@ -124,6 +124,84 @@ h1 {
     }
 }
 
+.enhancement-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin: 20px 0;
+    padding: 16px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #e1e1e1;
+}
+
+.enhance-label {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.enhance-select {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    background: white;
+    cursor: pointer;
+    flex: 1;
+    min-width: 150px;
+}
+
+.enhance-select:focus {
+    outline: none;
+    border-color: #0759b8;
+    box-shadow: 0 0 0 2px rgba(7, 89, 184, 0.2);
+}
+
+.enhance-button {
+    padding: 10px 20px;
+    background: #0759b8;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.enhance-button:hover {
+    background: #054a9c;
+}
+
+.enhance-button:active {
+    background: #043d82;
+}
+
+.enhancement-description {
+    margin: 0;
+    padding: 12px;
+    background: #f0f7ff;
+    border-radius: 6px;
+    border-left: 4px solid #0759b8;
+    font-style: italic;
+    color: #444;
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+    .enhancement-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .enhance-select {
+        width: 100%;
+    }
+}
+
 @media (max-width: 520px) {
     body {
         padding: 16px;
