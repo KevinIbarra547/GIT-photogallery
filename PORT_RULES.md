@@ -18,10 +18,13 @@ To prevent port conflicts and broken connections between different AI coding too
 - `server.js` - Reads from `process.env.PORT` (Replit sets this to 5000)
 - Environment variable: `PORT=5000`
 
-### For Google AI Studio (Port 3000)
-- `.replit` or equivalent - Configured to use port 3000
-- `server.js` - Reads from `process.env.PORT` (default: 3000)
-- Environment variable: `PORT=3000`
+### Auto-Detection in `server.js`
+`server.js` automatically detects whether it is running on **Replit** (via `process.env.REPL_ID`) or **Google AI Studio / Local**:
+```javascript
+const isReplit = Boolean(process.env.REPL_ID || process.env.REPLIT_ENVIRONMENT);
+const PORT = isReplit ? (process.env.PORT ? parseInt(process.env.PORT, 10) : 5000) : 3000;
+```
+*Note for Google AI Studio*: In Cloud Run containers, `process.env.PORT` is set internally to `8080`, but the platform proxy routes external web traffic strictly through port `3000`. The auto-detector ensures AI Studio uses port `3000` while Replit seamlessly uses port `5000`.*
 
 ## How to Switch Between Environments
 
