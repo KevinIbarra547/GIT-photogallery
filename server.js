@@ -2,7 +2,9 @@ const express = require('express');
 const fetch = require('node-fetch');
 const path = require('path');
 const app = express();
-const PORT = process.env.PORT || 3000;
+// Port configuration: Replit=5000, Google AI Studio=3000, Local=3000
+// See PORT_RULES.md for details
+const PORT = process.env.PORT || (process.env.REPL_ID ? 5000 : 3000);
 
 // Serve static files (HTML, CSS, images)
 app.use(express.static(path.join(__dirname)));
