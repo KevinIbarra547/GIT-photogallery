@@ -1,0 +1,6 @@
+{
+  "name": "Car Gallery",
+  "description": "A curated photo gallery showcasing plain, luxury, and vintage cars with detailed views",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
