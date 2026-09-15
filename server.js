@@ -1,9 +1,32 @@
 const express = require('express');
 const fetch = require('node-fetch');
 const path = require('path');
-
+const fs = require('fs');
 const app = express();
-const PORT = 3000;
+
+// Port configuration: Read from config/ai-port-rules.json
+// This allows AI tools to know which port to use based on environment
+let PORT = 3000; // Default fallback
+try {
+  const configPath = path.join(__dirname, 'config', 'ai-port-rules.json');
+  if (fs.existsSync(configPath)) {
+    const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+    const defaultPort = config.default_port || 3000;
+    
+    // Apply rules: check REPL_ID first (Replit environment)
+    if (process.env.REPL_ID) {
+      const replitRule = config.rules.find(r => r.detect_by === 'REPL_ID');
+      PORT = replitRule ? replitRule.port : 5000;
+    } else {
+      PORT = defaultPort;
+    }
+  }
+} catch (err) {
+  console.log('Using default port 3000, config file error:', err.message);
+}
+
+// Override with explicit PORT env var if set
+PORT = process.env.PORT || PORT;
 
 // Serve static files (HTML, CSS, images)
 app.use(express.static(path.join(__dirname), { extensions: ['html'] }));
@@ -72,7 +95,6 @@ Do not include any other text, markdown, or explanations. Just the JSON object.`
     if (data.choices && data.choices[0] && data.choices[0].message) {
       const content = data.choices[0].message.content;
       const jsonMatch = content.match(/\{[\s\S]*\}/);
-
       if (jsonMatch) {
         try {
           const parsed = JSON.parse(jsonMatch[0]);
@@ -87,7 +109,6 @@ Do not include any other text, markdown, or explanations. Just the JSON object.`
 
     // If we get here, the response wasn't valid - use fallback
     console.log("Groq response didn't contain valid JSON, using fallback");
-
   } catch (err) {
     console.error('Groq API Error:', err);
   }

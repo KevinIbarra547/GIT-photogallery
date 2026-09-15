@@ -1,0 +1,24 @@
+{
+  "rules": [
+    {
+      "environment": "replit",
+      "detect_by": "REPL_ID",
+      "port": 5000,
+      "description": "Replit AI Coding Tool - uses port 5000"
+    },
+    {
+      "environment": "google_ai_studio",
+      "detect_by": "GOOGLE_AI_STUDIO",
+      "port": 3000,
+      "description": "Google AI Studio - uses port 3000"
+    },
+    {
+      "environment": "local",
+      "detect_by": "default",
+      "port": 3000,
+      "description": "Local development - uses port 3000"
+    }
+  ],
+  "default_port": 3000,
+  "instructions": "AI TOOLS: Read this file to determine which port to use. When making changes, use the port that matches your environment (REPL_ID=5000, otherwise=3000). Do NOT hardcode ports in server.js - use the auto-detection logic that reads from this file. Before pushing to GitHub, ensure server.js uses process.env.PORT || (process.env.REPL_ID ? 5000 : 3000)."
+}
