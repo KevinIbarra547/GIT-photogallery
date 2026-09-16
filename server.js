@@ -6,12 +6,12 @@ const app = express();
 
 // Port configuration: Read from config/ai-port-rules.json
 // This allows AI tools to know which port to use based on environment
-let PORT = 3000; // Default fallback
+let PORT = 5000; // Default fallback
 try {
   const configPath = path.join(__dirname, 'config', 'ai-port-rules.json');
   if (fs.existsSync(configPath)) {
     const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-    const defaultPort = config.default_port || 3000;
+    const defaultPort = config.default_port || 5000;
     
     // Apply rules: check REPL_ID first (Replit environment)
     if (process.env.REPL_ID) {
@@ -22,7 +22,7 @@ try {
     }
   }
 } catch (err) {
-  console.log('Using default port 3000, config file error:', err.message);
+  console.log('Using default port 5000, config file error:', err.message);
 }
 
 // Override with explicit PORT env var if set
