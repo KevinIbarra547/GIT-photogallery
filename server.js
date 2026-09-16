@@ -25,8 +25,10 @@ try {
   console.log('Using default port 5000, config file error:', err.message);
 }
 
-// Override with explicit PORT env var if set
-PORT = process.env.PORT || PORT;
+// Override with explicit PORT env var if in Replit
+if (process.env.REPL_ID && process.env.PORT) {
+  PORT = process.env.PORT;
+}
 
 // Serve static files (HTML, CSS, images)
 app.use(express.static(path.join(__dirname), { extensions: ['html'] }));
