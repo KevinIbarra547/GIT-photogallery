@@ -81,7 +81,23 @@ This project is currently configured to **auto-detect the environment** using `c
 1. **AI TOOLS**: Always read `config/ai-port-rules.json` to know your port
 2. **Never** hardcode ports in `server.js` - it reads from the config file
 3. **The config file is the source of truth** - all port decisions come from here
-4. **Test** the application after making changes
+4. **Never remove `Cache-Control: no-store` from `server.js`**: Webviews in Replit and iframe previews will aggressively cache stale CSS/HTML, leading to unstyled links and old page versions.
+5. **Test** the application after making changes
+
+## Cache Prevention Rules (Preventing Ghost & Stale UI Bugs)
+
+### The Bug That Happened
+When switching between views or updating code, webview previews sometimes serve:
+1. An old cached version of `index.html` on the root URL `/`
+2. A new version of `index.html` after navigating back from detail pages
+3. A stale, cached version of `styles.css`, causing new HTML elements (like `.card-link` and `.spec-pill`) to render as plain, unstyled purple/blue links.
+
+### The Fix in `server.js`
+All static files and the HTML catch-all in `server.js` are configured with no-cache headers:
+```javascript
+res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+```
+**CRITICAL FOR ALL AI TOOLS**: Preserve these headers. Do not simplify `app.use(express.static(...))` back to default without headers.
 
 ## Troubleshooting
 
@@ -89,10 +105,12 @@ If the website breaks after switching:
 1. Verify `config/ai-port-rules.json` exists
 2. Check that `REPL_ID` environment variable is set in Replit
 3. Ensure `server.js` is reading from the config file
-4. Restart the server after making changes
+4. If styling looks outdated or unstyled, do a hard refresh in the preview (Ctrl+Shift+R or Cmd+Shift+R)
+5. Restart the server after making changes
 
 ## Version History
 
+- v1.2: Added cache prevention headers to `server.js` to prevent stale UI bugs (2024)
 - v1.1: Added machine-readable `config/ai-port-rules.json` (2024)
   - Server reads config file on startup
   - AI tools can read config to know their port

@@ -20,5 +20,6 @@
     }
   ],
   "default_port": 3000,
-  "instructions": "AI TOOLS: Read this file to determine which port to use. When making changes, use the port that matches your environment (REPL_ID=5000, otherwise=3000). Do NOT hardcode ports in server.js - use the auto-detection logic that reads from this file. Before pushing to GitHub, ensure server.js uses process.env.PORT || (process.env.REPL_ID ? 5000 : 3000)."
+  "cache_policy": "All static files and routes in server.js MUST include Cache-Control: no-store, no-cache headers. Never remove no-cache headers, or webviews will show mismatched stale HTML and unstyled CSS.",
+  "instructions": "AI TOOLS: Read this file to determine which port to use. When making changes, use the port that matches your environment (REPL_ID=5000, otherwise=3000). Do NOT hardcode ports in server.js - use the auto-detection logic that reads from this file. Before pushing to GitHub, ensure server.js uses process.env.PORT || (process.env.REPL_ID ? 5000 : 3000). AI tools MUST preserve Cache-Control: no-store headers in server.js to prevent browser cache mismatch bugs."
 }

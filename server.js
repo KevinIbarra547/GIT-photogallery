@@ -30,8 +30,13 @@ if (process.env.REPL_ID && process.env.PORT) {
   PORT = process.env.PORT;
 }
 
-// Serve static files (HTML, CSS, images)
-app.use(express.static(path.join(__dirname), { extensions: ['html'] }));
+// Serve static files with no-cache headers to prevent stale CSS / HTML in webviews
+app.use(express.static(path.join(__dirname), {
+  extensions: ['html'],
+  setHeaders: (res) => {
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  }
+}));
 
 // AI Enhancement endpoint
 app.get('/api/enhance', async (req, res) => {
@@ -118,8 +123,9 @@ Do not include any other text, markdown, or explanations. Just the JSON object.`
   res.json(presets[mode] || presets.dark);
 });
 
-// Catch-all route to serve index.html
+// Catch-all route to serve index.html with no-cache headers
 app.get('*', (req, res) => {
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
