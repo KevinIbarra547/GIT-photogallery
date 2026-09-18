@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tuning Studio — configure, compare, and diagnose the machines in the showroom.">
+    <title>Tuning Studio | Showroom Studio</title>
+    <link rel="stylesheet" href="garage.css">
+</head>
+<body>
+    <header class="showroom-header">
+        <div class="header-inner">
+            <a class="brand" href="index.html" aria-label="Back to Showroom Studio">
+                <span class="brand-mark" aria-hidden="true">S</span>
+                <span>
+                    <span class="brand-kicker">SHOWROOM STUDIO</span>
+                    <span class="brand-title">Tuning Studio</span>
+                </span>
+            </a>
+            <a class="header-back" href="index.html">
+                <span>Back to gallery</span>
+                <span aria-hidden="true">↗</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="garage-shell">
+        <section class="garage-intro" aria-labelledby="garage-title">
+            <div>
+                <p class="eyebrow">PRECISION CONFIGURATION</p>
+                <h1 id="garage-title">Build your machine.</h1>
+                <p class="intro-copy">Dial in the character of nine automotive icons, then let the Chief Mechanic read the result.</p>
+            </div>
+            <div class="intro-status" aria-label="Tuning Studio status">
+                <span class="status-dot" aria-hidden="true"></span>
+                <span>Live simulation</span>
+            </div>
+        </section>
+
+        <section class="studio-layout" aria-label="Tuning Studio">
+            <aside class="configuration-panel panel">
+                <div class="panel-heading">
+                    <div>
+                        <p class="eyebrow">01 / SELECT</p>
+                        <h2>Choose a machine</h2>
+                    </div>
+                    <span class="step-number">01</span>
+                </div>
+
+                <label class="field-label" for="car-selector">Gallery car</label>
+                <div class="select-wrap">
+                    <select id="car-selector" class="car-selector" aria-describedby="car-description">
+                        <option value="toyota-camry">Toyota Camry</option>
+                        <option value="honda-civic">Honda Civic</option>
+                        <option value="ford-mustang">Ford Mustang</option>
+                        <option value="bugatti-chiron">Bugatti Chiron</option>
+                        <option value="lamborghini-aventador">Lamborghini Aventador</option>
+                        <option value="ferrari-sf90">Ferrari SF90 Stradale</option>
+                        <option value="ford-model-t">Ford Model T</option>
+                        <option value="chevrolet-bel-air">Chevrolet Bel Air</option>
+                        <option value="volkswagen-beetle">Volkswagen Beetle</option>
+                    </select>
+                </div>
+
+                <div class="selected-car-preview">
+                    <img id="selected-car-image" src="assets/cars/toyota-camry.jpg" alt="Toyota Camry">
+                    <div>
+                        <strong id="selected-car-name">Toyota Camry</strong>
+                        <span id="car-description">203 horsepower · 135 mph</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="control-heading">
+                        <label>ECU Stage</label>
+                        <span class="control-value" id="ecu-stage-value">Stock</span>
+                    </div>
+                    <div class="segmented-control" role="radiogroup" aria-label="ECU Stage">
+                        <label class="segment">
+                            <input type="radio" name="ecuStage" value="stock" checked>
+                            <span>Stock</span>
+                        </label>
+                        <label class="segment">
+                            <input type="radio" name="ecuStage" value="stage-1">
+                            <span>Stage 1</span>
+                        </label>
+                        <label class="segment">
+                            <input type="radio" name="ecuStage" value="stage-2">
+                            <span>Stage 2</span>
+                        </label>
+                        <label class="segment">
+                            <input type="radio" name="ecuStage" value="stage-3">
+                            <span>Stage 3</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="control-heading">
+                        <label>Forced Induction</label>
+                        <span class="control-value" id="forced-induction-value">Naturally aspirated</span>
+                    </div>
+                    <div class="segmented-control" role="radiogroup" aria-label="Forced Induction">
+                        <label class="segment">
+                            <input type="radio" name="forcedInduction" value="none" checked>
+                            <span>None</span>
+                        </label>
+                        <label class="segment">
+                            <input type="radio" name="forcedInduction" value="turbo">
+                            <span>Turbo</span>
+                        </label>
+                        <label class="segment">
+                            <input type="radio" name="forcedInduction" value="supercharger">
+                            <span>Supercharger</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="control-heading">
+                        <label>Aerodynamics</label>
+                        <span class="control-value" id="aerodynamics-value">Street</span>
+                    </div>
+                    <div class="segmented-control" role="radiogroup" aria-label="Aerodynamics">
+                        <label class="segment">
+                            <input type="radio" name="aerodynamics" value="street" checked>
+                            <span>Street</span>
+                        </label>
+                        <label class="segment">
+                            <input type="radio" name="aerodynamics" value="sport">
+                            <span>Sport</span>
+                        </label>
+                        <label class="segment">
+                            <input type="radio" name="aerodynamics" value="track">
+                            <span>Track</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="control-heading">
+                        <label>Weight Reduction</label>
+                        <span class="control-value" id="weight-reduction-value">Stock weight</span>
+                    </div>
+                    <div class="segmented-control" role="radiogroup" aria-label="Weight Reduction">
+                        <label class="segment">
+                            <input type="radio" name="weightReduction" value="stock" checked>
+                            <span>Stock</span>
+                        </label>
+                        <label class="segment">
+                            <input type="radio" name="weightReduction" value="light">
+                            <span>Light</span>
+                        </label>
+                        <label class="segment">
+                            <input type="radio" name="weightReduction" value="competition">
+                            <span>Competition</span>
+                        </label>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="results-column">
+                <section class="panel dashboard-panel" aria-labelledby="dashboard-title">
+                    <div class="panel-heading dashboard-heading">
+                        <div>
+                            <p class="eyebrow">02 / READOUT</p>
+                            <h2 id="dashboard-title">Real-time specification</h2>
+                        </div>
+                        <span class="live-label"><span class="live-dot" aria-hidden="true"></span>Updating</span>
+                    </div>
+
+                    <div class="spec-grid">
+                        <article class="spec-card">
+                            <div class="spec-card-topline">
+                                <span class="spec-icon" aria-hidden="true">HP</span>
+                                <span class="spec-label">Horsepower</span>
+                            </div>
+                            <div class="spec-values">
+                                <div>
+                                    <span class="value-caption">Stock</span>
+                                    <strong id="stock-horsepower">203</strong>
+                                    <span class="value-unit">HP</span>
+                                </div>
+                                <span class="value-arrow" aria-hidden="true">→</span>
+                                <div class="tuned-value">
+                                    <span class="value-caption">Tuned</span>
+                                    <strong id="tuned-horsepower">203</strong>
+                                    <span class="value-unit">HP</span>
+                                </div>
+                            </div>
+                            <span class="spec-delta" id="horsepower-delta">No change</span>
+                        </article>
+
+                        <article class="spec-card">
+                            <div class="spec-card-topline">
+                                <span class="spec-icon" aria-hidden="true">0–60</span>
+                                <span class="spec-label">Acceleration</span>
+                            </div>
+                            <div class="spec-values">
+                                <div>
+                                    <span class="value-caption">Stock</span>
+                                    <strong id="stock-zero-to-sixty">7.6</strong>
+                                    <span class="value-unit">SEC</span>
+                                </div>
+                                <span class="value-arrow" aria-hidden="true">→</span>
+                                <div class="tuned-value">
+                                    <span class="value-caption">Tuned</span>
+                                    <strong id="tuned-zero-to-sixty">7.6</strong>
+                                    <span class="value-unit">SEC</span>
+                                </div>
+                            </div>
+                            <span class="spec-delta" id="zero-to-sixty-delta">No change</span>
+                        </article>
+
+                        <article class="spec-card">
+                            <div class="spec-card-topline">
+                                <span class="spec-icon" aria-hidden="true">MPH</span>
+                                <span class="spec-label">Top speed</span>
+                            </div>
+                            <div class="spec-values">
+                                <div>
+                                    <span class="value-caption">Stock</span>
+                                    <strong id="stock-top-speed">135</strong>
+                                    <span class="value-unit">MPH</span>
+                                </div>
+                                <span class="value-arrow" aria-hidden="true">→</span>
+                                <div class="tuned-value">
+                                    <span class="value-caption">Tuned</span>
+                                    <strong id="tuned-top-speed">135</strong>
+                                    <span class="value-unit">MPH</span>
+                                </div>
+                            </div>
+                            <span class="spec-delta" id="top-speed-delta">No change</span>
+                        </article>
+
+                        <article class="spec-card stress-card">
+                            <div class="spec-card-topline">
+                                <span class="spec-icon" aria-hidden="true">!</span>
+                                <span class="spec-label">Mechanical stress</span>
+                            </div>
+                            <div class="stress-values">
+                                <div class="stress-row">
+                                    <span class="value-caption">Stock</span>
+                                    <div class="meter"><span id="stock-stress-meter" style="width: 24%"></span></div>
+                                    <strong id="stock-stress">24%</strong>
+                                </div>
+                                <div class="stress-row">
+                                    <span class="value-caption">Tuned</span>
+                                    <div class="meter tuned-meter"><span id="tuned-stress-meter" style="width: 24%"></span></div>
+                                    <strong id="tuned-stress">24%</strong>
+                                </div>
+                            </div>
+                            <span class="spec-delta stress-delta" id="stress-delta">Baseline load</span>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="chief-card" aria-labelledby="chief-title">
+                    <div class="chief-card-copy">
+                        <div class="chief-avatar" aria-hidden="true">◎</div>
+                        <div>
+                            <p class="eyebrow">03 / INSPECT</p>
+                            <h2 id="chief-title">AI Chief Mechanic</h2>
+                            <p>Listen for the details. Receive a mechanical inspection based on this exact build.</p>
+                        </div>
+                    </div>
+                    <button class="diagnostic-button" id="diagnostic-button" type="button">
+                        <span>Run AI Diagnostic &amp; Acoustic Analysis</span>
+                        <span aria-hidden="true">↗</span>
+                    </button>
+                    <div class="report-container" id="diagnostic-report" aria-live="polite">
+                        <p class="report-placeholder">Your inspection report will appear here.</p>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </main>
+
+    <script src="public/js/tuning-engine.js"></script>
+    <script>
+        (() => {
+            const cars = {
+                "toyota-camry": {
+                    name: "Toyota Camry",
+                    image: "assets/cars/toyota-camry.jpg",
+                    stock: { horsepower: 203, zeroTo60: 7.6, topSpeed: 135, mechanicalStress: 24 }
+                },
+                "honda-civic": {
+                    name: "Honda Civic",
+                    image: "assets/cars/honda-civic.jpg",
+                    stock: { horsepower: 158, zeroTo60: 8.2, topSpeed: 130, mechanicalStress: 22 }
+                },
+                "ford-mustang": {
+                    name: "Ford Mustang",
+                    image: "assets/cars/ford-mustang.jpg",
+                    stock: { horsepower: 450, zeroTo60: 4.2, topSpeed: 155, mechanicalStress: 38 }
+                },
+                "bugatti-chiron": {
+                    name: "Bugatti Chiron",
+                    image: "assets/cars/bugatti-chiron.jpg",
+                    stock: { horsepower: 1479, zeroTo60: 2.4, topSpeed: 261, mechanicalStress: 62 }
+                },
+                "lamborghini-aventador": {
+                    name: "Lamborghini Aventador",
+                    image: "assets/cars/lamborghini-aventador.jpg",
+                    stock: { horsepower: 769, zeroTo60: 2.8, topSpeed: 217, mechanicalStress: 48 }
+                },
+                "ferrari-sf90": {
+                    name: "Ferrari SF90 Stradale",
+                    image: "assets/cars/ferrari-sf90.jpg",
+                    stock: { horsepower: 986, zeroTo60: 2.5, topSpeed: 211, mechanicalStress: 46 }
+                },
+                "ford-model-t": {
+                    name: "Ford Model T",
+                    image: "assets/cars/ford-model-t.jpg",
+                    stock: { horsepower: 20, zeroTo60: 28.0, topSpeed: 42, mechanicalStress: 12 }
+                },
+                "chevrolet-bel-air": {
+                    name: "Chevrolet Bel Air",
+                    image: "assets/cars/chevrolet-bel-air.jpg",
+                    stock: { horsepower: 162, zeroTo60: 12.0, topSpeed: 100, mechanicalStress: 27 }
+                },
+                "volkswagen-beetle": {
+                    name: "Volkswagen Beetle",
+                    image: "assets/cars/volkswagen-beetle.jpg",
+                    stock: { horsepower: 53, zeroTo60: 19.0, topSpeed: 80, mechanicalStress: 18 }
+                }
+            };
+
+            const labels = {
+                ecuStage: { stock: "Stock", "stage-1": "Stage 1", "stage-2": "Stage 2", "stage-3": "Stage 3" },
+                forcedInduction: { none: "Naturally aspirated", turbo: "Turbocharged", supercharger: "Supercharged" },
+                aerodynamics: { street: "Street", sport: "Sport", track: "Track" },
+                weightReduction: { stock: "Stock weight", light: "Lightened", competition: "Competition" }
+            };
+
+            let selectedCarId = "toyota-camry";
+            let currentTunedSpecs = null;
+
+            const getOptions = () => ({
+                ecuStage: document.querySelector('input[name="ecuStage"]:checked').value,
+                forcedInduction: document.querySelector('input[name="forcedInduction"]:checked').value,
+                aerodynamics: document.querySelector('input[name="aerodynamics"]:checked').value,
+                weightReduction: document.querySelector('input[name="weightReduction"]:checked').value
+            });
+
+            const numberFrom = (value, fallback) => {
+                const number = Number(value);
+                return Number.isFinite(number) ? number : fallback;
+            };
+
+            const readSpec = (specs, names, fallback) => {
+                for (const name of names) {
+                    if (specs && specs[name] !== undefined) return numberFrom(specs[name], fallback);
+                }
+                return fallback;
+            };
+
+            const normalizeSpecs = (raw, stock) => {
+                const result = raw && (raw.tunedSpecs || raw.tuned || raw.specs || raw);
+                return {
+                    horsepower: readSpec(result, ["horsepower", "hp", "Horsepower"], stock.horsepower),
+                    zeroTo60: readSpec(result, ["zeroTo60", "zero_to_60", "acceleration", "zeroToSixty"], stock.zeroTo60),
+                    topSpeed: readSpec(result, ["topSpeed", "top_speed", "maxSpeed"], stock.topSpeed),
+                    mechanicalStress: Math.max(0, Math.min(100, readSpec(result, ["mechanicalStress", "stress", "stressLevel"], stock.mechanicalStress)))
+                };
+            };
+
+            const setText = (id, value) => {
+                const element = document.getElementById(id);
+                if (element) element.textContent = value;
+            };
+
+            const signed = (value, suffix, decimals = 0) => {
+                const rounded = Number(value.toFixed(decimals));
+                if (rounded === 0) return "No change";
+                return `${rounded > 0 ? "+" : ""}${rounded}${suffix}`;
+            };
+
+            const renderDashboard = (stock, tuned) => {
+                setText("stock-horsepower", Math.round(stock.horsepower));
+                setText("tuned-horsepower", Math.round(tuned.horsepower));
+                setText("horsepower-delta", signed(tuned.horsepower - stock.horsepower, " HP"));
+                setText("stock-zero-to-sixty", stock.zeroTo60.toFixed(1));
+                setText("tuned-zero-to-sixty", tuned.zeroTo60.toFixed(1));
+                setText("zero-to-sixty-delta", signed(tuned.zeroTo60 - stock.zeroTo60, " sec", 1));
+                setText("stock-top-speed", Math.round(stock.topSpeed));
+                setText("tuned-top-speed", Math.round(tuned.topSpeed));
+                setText("top-speed-delta", signed(tuned.topSpeed - stock.topSpeed, " MPH"));
+                setText("stock-stress", `${Math.round(stock.mechanicalStress)}%`);
+                setText("tuned-stress", `${Math.round(tuned.mechanicalStress)}%`);
+                setText("stress-delta", signed(tuned.mechanicalStress - stock.mechanicalStress, "%"));
+                document.getElementById("stock-stress-meter").style.width = `${stock.mechanicalStress}%`;
+                document.getElementById("tuned-stress-meter").style.width = `${tuned.mechanicalStress}%`;
+            };
+
+            const renderSelectedCar = () => {
+                const car = cars[selectedCarId];
+                document.getElementById("selected-car-image").src = car.image;
+                document.getElementById("selected-car-image").alt = car.name;
+                setText("selected-car-name", car.name);
+                setText("car-description", `${car.stock.horsepower} horsepower · ${car.stock.topSpeed} mph`);
+            };
+
+            const calculate = async () => {
+                const car = cars[selectedCarId];
+                const options = getOptions();
+                Object.keys(options).forEach((key) => {
+                    setText(`${key.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)}-value`, labels[key][options[key]]);
+                });
+
+                const payload = {
+                    car: car.name,
+                    carId: selectedCarId,
+                    stockSpecs: car.stock,
+                    options,
+                    tuning: options
+                };
+
+                const engine = window.TuningEngine;
+                if (!engine || typeof engine.calculateTunedSpecs !== "function") {
+                    currentTunedSpecs = payload;
+                    renderDashboard(car.stock, car.stock);
+                    setText("stress-delta", "Engine unavailable");
+                    return;
+                }
+
+                try {
+                    window.TuningEngine.currentConfiguration = payload;
+                    const result = await Promise.resolve(window.TuningEngine.calculateTunedSpecs(payload));
+                    const tuned = normalizeSpecs(result, car.stock);
+                    currentTunedSpecs = { ...payload, tunedSpecs: tuned };
+                    renderDashboard(car.stock, tuned);
+                } catch (error) {
+                    currentTunedSpecs = payload;
+                    renderDashboard(car.stock, car.stock);
+                    setText("stress-delta", "Calculation unavailable");
+                    console.error("Tuning calculation error:", error);
+                }
+            };
+
+            const runDiagnostic = async () => {
+                const button = document.getElementById("diagnostic-button");
+                const report = document.getElementById("diagnostic-report");
+                button.disabled = true;
+                button.classList.add("is-loading");
+                report.innerHTML = '<p class="report-loading"><span class="loading-pulse"></span>Chief Mechanic is listening to the build...</p>';
+
+                try {
+                    const response = await fetch("/api/tune-diagnostics", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(currentTunedSpecs)
+                    });
+                    const data = await response.json();
+                    if (!response.ok) throw new Error(data.error || "Diagnostic request failed");
+                    const message = data.report || data.message || data.diagnostic || data.content || "Inspection complete.";
+                    report.innerHTML = `<p class="report-success">${String(message).replace(/\n/g, "<br>")}</p>`;
+                } catch (error) {
+                    report.innerHTML = `<p class="report-error">The Chief Mechanic could not complete the inspection. ${error.message}</p>`;
+                } finally {
+                    button.disabled = false;
+                    button.classList.remove("is-loading");
+                }
+            };
+
+            document.addEventListener("DOMContentLoaded", () => {
+                document.getElementById("car-selector").addEventListener("change", (event) => {
+                    selectedCarId = event.target.value;
+                    renderSelectedCar();
+                    calculate();
+                });
+                document.querySelectorAll('input[type="radio"]').forEach((input) => input.addEventListener("change", calculate));
+                document.getElementById("diagnostic-button").addEventListener("click", runDiagnostic);
+                renderSelectedCar();
+                calculate();
+            });
+        })();
+    </script>
+</body>
+</html>
