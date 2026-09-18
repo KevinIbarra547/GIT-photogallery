@@ -31,6 +31,7 @@ if (process.env.REPL_ID && process.env.PORT) {
 }
 
 // Serve static files with no-cache headers to prevent stale CSS / HTML in webviews
+app.use(express.json());
 app.use(express.static(path.join(__dirname), {
   extensions: ['html'],
   setHeaders: (res) => {
@@ -121,6 +122,89 @@ Do not include any other text, markdown, or explanations. Just the JSON object.`
   }
 
   res.json(presets[mode] || presets.dark);
+});
+
+// AI Tuning Diagnostics & Acoustic Analysis endpoint
+app.post('/api/tune-diagnostics', async (req, res) => {
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  const { carName, stockSpecs = {}, tunedSpecs = {}, selectedMods = {} } = req.body || {};
+
+  if (!carName) {
+    return res.status(400).json({ error: 'Missing carName in request body' });
+  }
+
+  const stressScore = tunedSpecs.stressScore || 35;
+  const hpGain = (tunedSpecs.hp || 0) - (stockSpecs.hp || 0);
+
+  // Dynamic mechanical fallback based on car & stress metrics
+  const defaultDiagnostics = {
+    diagnosticVerdict: stressScore > 75 
+      ? "Extreme Track Build - High Thermal Load" 
+      : (stressScore > 45 ? "Aggressive Street Tune - High Output" : "Optimized OEM+ Street Profile"),
+    reliabilityScore: Math.max(15, 100 - Math.round(stressScore * 0.9)),
+    mechanicNotes: `With ${hpGain > 0 ? '+' + hpGain + ' HP' : 'stock output'} on the ${carName}, cylinder pressures are operating at ${stressScore > 60 ? 'peak internal tolerance' : 'balanced factory levels'}. ${selectedMods.forcedInduction && selectedMods.forcedInduction !== 'None' ? 'Turbo boost mapping requires high-octane 93+ fuel to prevent timing retardation under load.' : 'Naturally aspirated throttle response remains linear and predictable across the RPM band.'}`,
+    acousticProfile: `${carName} with ${selectedMods.ecu || 'Stock ECU'}: Idle is clean and steady. Wide-open throttle generates ${stressScore > 60 ? 'aggressive exhaust overrun pops, rapid turbo wastegate flutter, and raw metallic induction bark' : 'a refined, deep induction tone with crisp mechanical harmony'} into the upper rev range.`,
+    trackRecommendation: stressScore > 65 
+      ? "Mandatory oil cooler upgrade, slotted front brake rotors, and DOT-4 racing brake fluid before aggressive track sessions." 
+      : "Standard cooling loop is sufficient. Maintain cold tire pressures at 32 PSI for optimal lateral grip.",
+    engineHealth: stressScore > 75 
+      ? "Critical Strain (Forged Internals Advised)" 
+      : (stressScore > 45 ? "Moderate Strain (Service every 3,000 miles)" : "Nominal (Factory Reliability)")
+  };
+
+  // If GROQ_API_KEY is available, query Groq for custom AI diagnostic appraisal
+  if (process.env.GROQ_API_KEY) {
+    try {
+      const prompt = `You are a legendary Master Automotive Race Engineer and Chief Mechanic.
+Analyze this custom tuned vehicle build:
+Car: ${carName}
+Stock Specs: ${JSON.stringify(stockSpecs)}
+Tuned Specs: ${JSON.stringify(tunedSpecs)}
+Selected Upgrades: ${JSON.stringify(selectedMods)}
+
+Generate an authoritative diagnostic appraisal in STRICT JSON format with EXACTLY these keys:
+{
+  "diagnosticVerdict": "Short bold verdict (e.g., 'Track-Attack Weapon' or 'Balanced Fast Road Build')",
+  "reliabilityScore": 78,
+  "mechanicNotes": "2-3 precise, authentic mechanical sentences analyzing engine internals, boost, cooling, and power delivery.",
+  "acousticProfile": "1-2 vivid sentences describing the exhaust timbre, intake sound, and turbo/supercharger noise.",
+  "trackRecommendation": "1 practical actionable track prep recommendation.",
+  "engineHealth": "One of: 'Nominal', 'Moderate Strain', or 'Critical Strain (Forged Internals Advised)'"
+}
+Output ONLY the raw JSON object without markdown fences, explanation, or extra characters.`;
+
+      const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: "llama-3.2-11b",
+          messages: [{ role: "user", content: prompt }],
+          temperature: 0.7,
+          max_tokens: 350
+        })
+      });
+
+      const data = await groqResponse.json();
+      if (data.choices && data.choices[0] && data.choices[0].message) {
+        const content = data.choices[0].message.content;
+        const jsonMatch = content.match(/\{[\s\S]*\}/);
+        if (jsonMatch) {
+          const parsed = JSON.parse(jsonMatch[0]);
+          if (parsed.diagnosticVerdict && parsed.mechanicNotes) {
+            return res.json(parsed);
+          }
+        }
+      }
+    } catch (err) {
+      console.error('Groq Tuning Diagnostics Error:', err.message);
+    }
+  }
+
+  // Fallback response
+  return res.json(defaultDiagnostics);
 });
 
 // Catch-all route to serve index.html with no-cache headers
