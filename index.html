@@ -3,183 +3,271 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Gallery</title>
-    <meta name="description" content="A curated photo gallery showcasing plain, luxury, and vintage cars with detailed views">
-    <meta property="og:title" content="Car Gallery">
-    <meta property="og:description" content="A curated photo gallery showcasing plain, luxury, and vintage cars with detailed views">
+    <title>Car Gallery | Luxury Showroom</title>
+    <meta name="description" content="An Apple-grade automotive showroom featuring everyday sedans, elite hypercars, and heritage classics with interactive metrics and AI enhancement.">
+    <meta property="og:title" content="Car Gallery | Luxury Showroom">
+    <meta property="og:description" content="An Apple-grade automotive showroom featuring everyday sedans, elite hypercars, and heritage classics.">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Apple-Style Sticky Frosted Glass Header -->
+    <header class="showroom-header">
+        <div class="header-inner">
+            <div class="brand">
+                <span class="brand-badge">EXHIBIT</span>
+                <span class="brand-title">Showroom Studio</span>
+            </div>
+            <div class="header-stats">
+                <span class="stat-pill">9 Machines</span>
+                <span class="stat-pill">3 Eras</span>
+                <span class="stat-pill ai-stat">AI Vision Ready</span>
+            </div>
+        </div>
+    </header>
+
     <div class="container">
-        <h1>Car Gallery</h1>
-        
-        <!-- Row 1: Plain Cars -->
-        <div class="row-title">Plain Cars</div>
-        <div class="grid">
-            <a href="toyota-camry.html" class="card-link">
-                <div class="card">
-                    <div class="card-image-wrap">
-                        <img src="assets/cars/toyota-camry.jpg" alt="Toyota Camry" class="card-img">
-                        <span class="category-badge">Sedan</span>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-title">Toyota Camry</div>
-                        <div class="card-specs">
-                            <span class="spec-pill">203 HP</span>
-                            <span class="spec-pill">135 MPH</span>
-                            <span class="spec-pill">2024</span>
+        <!-- Hero Spotlight Section -->
+        <section class="spotlight-hero">
+            <div class="spotlight-card">
+                <div class="spotlight-content">
+                    <div class="spotlight-eyebrow">FEATURED SHOWCASE</div>
+                    <h2 class="spotlight-title">Ferrari SF90 Stradale</h2>
+                    <p class="spotlight-desc">1,000 horsepower of Italian hybrid mastery. A twin-turbo V8 backed by triple electric motors that redefine hypercar acceleration.</p>
+                    
+                    <div class="spotlight-metrics">
+                        <div class="metric-item">
+                            <div class="metric-val">986 HP</div>
+                            <div class="metric-lbl">Total Output</div>
                         </div>
-                        <div class="card-action">View & AI Enhance &rarr;</div>
+                        <div class="metric-item">
+                            <div class="metric-val">2.5s</div>
+                            <div class="metric-lbl">0–60 MPH</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-val">211 MPH</div>
+                            <div class="metric-lbl">Top Speed</div>
+                        </div>
+                    </div>
+
+                    <div class="spotlight-actions">
+                        <a href="ferrari-sf90.html" class="spotlight-cta">Explore & AI Enhance &rarr;</a>
                     </div>
                 </div>
-            </a>
-            <a href="honda-civic.html" class="card-link">
-                <div class="card">
-                    <div class="card-image-wrap">
-                        <img src="assets/cars/honda-civic.jpg" alt="Honda Civic" class="card-img">
-                        <span class="category-badge">Sedan</span>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-title">Honda Civic</div>
-                        <div class="card-specs">
-                            <span class="spec-pill">158 HP</span>
-                            <span class="spec-pill">130 MPH</span>
-                            <span class="spec-pill">2024</span>
-                        </div>
-                        <div class="card-action">View & AI Enhance &rarr;</div>
-                    </div>
+                <div class="spotlight-media">
+                    <img src="assets/cars/ferrari-sf90.jpg" alt="Ferrari SF90 Stradale" class="spotlight-img">
                 </div>
-            </a>
-            <a href="ford-mustang.html" class="card-link">
-                <div class="card">
-                    <div class="card-image-wrap">
-                        <img src="assets/cars/ford-mustang.jpg" alt="Ford Mustang" class="card-img">
-                        <span class="category-badge">Muscle</span>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-title">Ford Mustang</div>
-                        <div class="card-specs">
-                            <span class="spec-pill">450 HP</span>
-                            <span class="spec-pill">155 MPH</span>
-                            <span class="spec-pill">2024</span>
+            </div>
+        </section>
+
+        <!-- Floating Category Filter Bar -->
+        <nav class="filter-bar" aria-label="Car Categories">
+            <button class="filter-pill active" data-category="all">All Machines (9)</button>
+            <button class="filter-pill" data-category="plain">Sedan & Muscle (3)</button>
+            <button class="filter-pill" data-category="luxury">Hyper & Supercars (3)</button>
+            <button class="filter-pill" data-category="vintage">Heritage Classics (3)</button>
+        </nav>
+
+        <!-- Gallery Showcase Grid -->
+        <main class="gallery-showcase">
+            <!-- Plain Cars -->
+            <section class="gallery-group" data-group="plain">
+                <div class="row-title">Everyday & Muscle</div>
+                <div class="grid">
+                    <a href="toyota-camry.html" class="card-link" data-category="plain">
+                        <div class="card">
+                            <div class="card-image-wrap">
+                                <img src="assets/cars/toyota-camry.jpg" alt="Toyota Camry" class="card-img" loading="lazy">
+                                <span class="category-badge">Sedan</span>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-title">Toyota Camry</div>
+                                <div class="card-specs">
+                                    <span class="spec-pill">203 HP</span>
+                                    <span class="spec-pill">135 MPH</span>
+                                    <span class="spec-pill">2024</span>
+                                </div>
+                                <div class="card-action">View & AI Enhance &rarr;</div>
+                            </div>
                         </div>
-                        <div class="card-action">View & AI Enhance &rarr;</div>
-                    </div>
-                </div>
-            </a>
-        </div>
-        
-        <!-- Row 2: Luxury Cars -->
-        <div class="row-title">Luxury Cars</div>
-        <div class="grid">
-            <a href="bugatti-chiron.html" class="card-link">
-                <div class="card">
-                    <div class="card-image-wrap">
-                        <img src="assets/cars/bugatti-chiron.jpg" alt="Bugatti Chiron" class="card-img">
-                        <span class="category-badge">Hypercar</span>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-title">Bugatti Chiron</div>
-                        <div class="card-specs">
-                            <span class="spec-pill">1479 HP</span>
-                            <span class="spec-pill">261 MPH</span>
-                            <span class="spec-pill">W16 Quad-Turbo</span>
+                    </a>
+                    <a href="honda-civic.html" class="card-link" data-category="plain">
+                        <div class="card">
+                            <div class="card-image-wrap">
+                                <img src="assets/cars/honda-civic.jpg" alt="Honda Civic" class="card-img" loading="lazy">
+                                <span class="category-badge">Sedan</span>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-title">Honda Civic</div>
+                                <div class="card-specs">
+                                    <span class="spec-pill">158 HP</span>
+                                    <span class="spec-pill">130 MPH</span>
+                                    <span class="spec-pill">2024</span>
+                                </div>
+                                <div class="card-action">View & AI Enhance &rarr;</div>
+                            </div>
                         </div>
-                        <div class="card-action">View & AI Enhance &rarr;</div>
-                    </div>
-                </div>
-            </a>
-            <a href="lamborghini-aventador.html" class="card-link">
-                <div class="card">
-                    <div class="card-image-wrap">
-                        <img src="assets/cars/lamborghini-aventador.jpg" alt="Lamborghini Aventador" class="card-img">
-                        <span class="category-badge">Supercar</span>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-title">Lamborghini Aventador</div>
-                        <div class="card-specs">
-                            <span class="spec-pill">769 HP</span>
-                            <span class="spec-pill">217 MPH</span>
-                            <span class="spec-pill">V12</span>
+                    </a>
+                    <a href="ford-mustang.html" class="card-link" data-category="plain">
+                        <div class="card">
+                            <div class="card-image-wrap">
+                                <img src="assets/cars/ford-mustang.jpg" alt="Ford Mustang" class="card-img" loading="lazy">
+                                <span class="category-badge">Muscle</span>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-title">Ford Mustang</div>
+                                <div class="card-specs">
+                                    <span class="spec-pill">450 HP</span>
+                                    <span class="spec-pill">155 MPH</span>
+                                    <span class="spec-pill">5.0L V8</span>
+                                </div>
+                                <div class="card-action">View & AI Enhance &rarr;</div>
+                            </div>
                         </div>
-                        <div class="card-action">View & AI Enhance &rarr;</div>
-                    </div>
+                    </a>
                 </div>
-            </a>
-            <a href="ferrari-sf90.html" class="card-link">
-                <div class="card">
-                    <div class="card-image-wrap">
-                        <img src="assets/cars/ferrari-sf90.jpg" alt="Ferrari SF90 Stradale" class="card-img">
-                        <span class="category-badge">Hybrid Supercar</span>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-title">Ferrari SF90 Stradale</div>
-                        <div class="card-specs">
-                            <span class="spec-pill">986 HP</span>
-                            <span class="spec-pill">211 MPH</span>
-                            <span class="spec-pill">Twin-Turbo V8</span>
+            </section>
+
+            <!-- Luxury Cars -->
+            <section class="gallery-group" data-group="luxury">
+                <div class="row-title">Hyper & Supercars</div>
+                <div class="grid">
+                    <a href="bugatti-chiron.html" class="card-link" data-category="luxury">
+                        <div class="card">
+                            <div class="card-image-wrap">
+                                <img src="assets/cars/bugatti-chiron.jpg" alt="Bugatti Chiron" class="card-img" loading="lazy">
+                                <span class="category-badge">Hypercar</span>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-title">Bugatti Chiron</div>
+                                <div class="card-specs">
+                                    <span class="spec-pill">1479 HP</span>
+                                    <span class="spec-pill">261 MPH</span>
+                                    <span class="spec-pill">W16 Quad-Turbo</span>
+                                </div>
+                                <div class="card-action">View & AI Enhance &rarr;</div>
+                            </div>
                         </div>
-                        <div class="card-action">View & AI Enhance &rarr;</div>
-                    </div>
-                </div>
-            </a>
-        </div>
-        
-        <!-- Row 3: Vintage Cars -->
-        <div class="row-title">Vintage Cars</div>
-        <div class="grid">
-            <a href="ford-model-t.html" class="card-link">
-                <div class="card">
-                    <div class="card-image-wrap">
-                        <img src="assets/cars/ford-model-t.jpg" alt="Ford Model T" class="card-img">
-                        <span class="category-badge">Pioneer</span>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-title">Ford Model T</div>
-                        <div class="card-specs">
-                            <span class="spec-pill">20 HP</span>
-                            <span class="spec-pill">42 MPH</span>
-                            <span class="spec-pill">1908–1927</span>
+                    </a>
+                    <a href="lamborghini-aventador.html" class="card-link" data-category="luxury">
+                        <div class="card">
+                            <div class="card-image-wrap">
+                                <img src="assets/cars/lamborghini-aventador.jpg" alt="Lamborghini Aventador" class="card-img" loading="lazy">
+                                <span class="category-badge">Supercar</span>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-title">Lamborghini Aventador</div>
+                                <div class="card-specs">
+                                    <span class="spec-pill">769 HP</span>
+                                    <span class="spec-pill">217 MPH</span>
+                                    <span class="spec-pill">6.5L V12</span>
+                                </div>
+                                <div class="card-action">View & AI Enhance &rarr;</div>
+                            </div>
                         </div>
-                        <div class="card-action">View & AI Enhance &rarr;</div>
-                    </div>
-                </div>
-            </a>
-            <a href="chevrolet-bel-air.html" class="card-link">
-                <div class="card">
-                    <div class="card-image-wrap">
-                        <img src="assets/cars/chevrolet-bel-air.jpg" alt="Chevrolet Bel Air" class="card-img">
-                        <span class="category-badge">Classic</span>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-title">Chevrolet Bel Air</div>
-                        <div class="card-specs">
-                            <span class="spec-pill">162 HP</span>
-                            <span class="spec-pill">100 MPH</span>
-                            <span class="spec-pill">1957 V8</span>
+                    </a>
+                    <a href="ferrari-sf90.html" class="card-link" data-category="luxury">
+                        <div class="card">
+                            <div class="card-image-wrap">
+                                <img src="assets/cars/ferrari-sf90.jpg" alt="Ferrari SF90 Stradale" class="card-img" loading="lazy">
+                                <span class="category-badge">Hybrid Hypercar</span>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-title">Ferrari SF90 Stradale</div>
+                                <div class="card-specs">
+                                    <span class="spec-pill">986 HP</span>
+                                    <span class="spec-pill">211 MPH</span>
+                                    <span class="spec-pill">Twin-Turbo V8</span>
+                                </div>
+                                <div class="card-action">View & AI Enhance &rarr;</div>
+                            </div>
                         </div>
-                        <div class="card-action">View & AI Enhance &rarr;</div>
-                    </div>
+                    </a>
                 </div>
-            </a>
-            <a href="volkswagen-beetle.html" class="card-link">
-                <div class="card">
-                    <div class="card-image-wrap">
-                        <img src="assets/cars/volkswagen-beetle.jpg" alt="Volkswagen Beetle" class="card-img">
-                        <span class="category-badge">Iconic</span>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-title">Volkswagen Beetle</div>
-                        <div class="card-specs">
-                            <span class="spec-pill">53 HP</span>
-                            <span class="spec-pill">80 MPH</span>
-                            <span class="spec-pill">Air-Cooled</span>
+            </section>
+
+            <!-- Vintage Cars -->
+            <section class="gallery-group" data-group="vintage">
+                <div class="row-title">Heritage Classics</div>
+                <div class="grid">
+                    <a href="ford-model-t.html" class="card-link" data-category="vintage">
+                        <div class="card">
+                            <div class="card-image-wrap">
+                                <img src="assets/cars/ford-model-t.jpg" alt="Ford Model T" class="card-img" loading="lazy">
+                                <span class="category-badge">Pioneer</span>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-title">Ford Model T</div>
+                                <div class="card-specs">
+                                    <span class="spec-pill">20 HP</span>
+                                    <span class="spec-pill">42 MPH</span>
+                                    <span class="spec-pill">1908–1927</span>
+                                </div>
+                                <div class="card-action">View & AI Enhance &rarr;</div>
+                            </div>
                         </div>
-                        <div class="card-action">View & AI Enhance &rarr;</div>
-                    </div>
+                    </a>
+                    <a href="chevrolet-bel-air.html" class="card-link" data-category="vintage">
+                        <div class="card">
+                            <div class="card-image-wrap">
+                                <img src="assets/cars/chevrolet-bel-air.jpg" alt="Chevrolet Bel Air" class="card-img" loading="lazy">
+                                <span class="category-badge">Classic</span>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-title">Chevrolet Bel Air</div>
+                                <div class="card-specs">
+                                    <span class="spec-pill">162 HP</span>
+                                    <span class="spec-pill">100 MPH</span>
+                                    <span class="spec-pill">1957 V8</span>
+                                </div>
+                                <div class="card-action">View & AI Enhance &rarr;</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="volkswagen-beetle.html" class="card-link" data-category="vintage">
+                        <div class="card">
+                            <div class="card-image-wrap">
+                                <img src="assets/cars/volkswagen-beetle.jpg" alt="Volkswagen Beetle" class="card-img" loading="lazy">
+                                <span class="category-badge">Iconic</span>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-title">Volkswagen Beetle</div>
+                                <div class="card-specs">
+                                    <span class="spec-pill">53 HP</span>
+                                    <span class="spec-pill">80 MPH</span>
+                                    <span class="spec-pill">Air-Cooled</span>
+                                </div>
+                                <div class="card-action">View & AI Enhance &rarr;</div>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-            </a>
-        </div>
+            </section>
+        </main>
     </div>
+
+    <!-- Client-Side Filter Interactions -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pills = document.querySelectorAll('.filter-pill');
+            const groups = document.querySelectorAll('.gallery-group');
+
+            pills.forEach(pill => {
+                pill.addEventListener('click', () => {
+                    const selected = pill.getAttribute('data-category');
+                    pills.forEach(p => p.classList.remove('active'));
+                    pill.classList.add('active');
+
+                    groups.forEach(group => {
+                        const groupCategory = group.getAttribute('data-group');
+                        if (selected === 'all' || selected === groupCategory) {
+                            group.style.display = 'block';
+                        } else {
+                            group.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 </html>
