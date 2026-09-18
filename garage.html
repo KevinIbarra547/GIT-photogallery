@@ -442,6 +442,12 @@
             const runDiagnostic = async () => {
                 const button = document.getElementById("diagnostic-button");
                 const report = document.getElementById("diagnostic-report");
+                const showReport = (message, className) => {
+                    const paragraph = document.createElement("p");
+                    paragraph.className = className;
+                    paragraph.textContent = message;
+                    report.replaceChildren(paragraph);
+                };
                 button.disabled = true;
                 button.classList.add("is-loading");
                 report.innerHTML = '<p class="report-loading"><span class="loading-pulse"></span>Chief Mechanic is listening to the build...</p>';
@@ -455,9 +461,9 @@
                     const data = await response.json();
                     if (!response.ok) throw new Error(data.error || "Diagnostic request failed");
                     const message = data.report || data.message || data.diagnostic || data.content || "Inspection complete.";
-                    report.innerHTML = `<p class="report-success">${String(message).replace(/\n/g, "<br>")}</p>`;
+                    showReport(String(message), "report-success");
                 } catch (error) {
-                    report.innerHTML = `<p class="report-error">The Chief Mechanic could not complete the inspection. ${error.message}</p>`;
+                    showReport(`The Chief Mechanic could not complete the inspection. ${error.message}`, "report-error");
                 } finally {
                     button.disabled = false;
                     button.classList.remove("is-loading");
