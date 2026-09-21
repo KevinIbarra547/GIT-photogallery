@@ -281,61 +281,78 @@
         (() => {
             const cars = {
                 "toyota-camry": {
+                    key: "camry",
                     name: "Toyota Camry",
                     image: "assets/cars/toyota-camry.jpg",
-                    stock: { horsepower: 203, zeroTo60: 7.6, topSpeed: 135, mechanicalStress: 24 }
+                    stock: { horsepower: 203, zeroTo60: 7.9, topSpeed: 132, mechanicalStress: 20 }
                 },
                 "honda-civic": {
+                    key: "civic",
                     name: "Honda Civic",
                     image: "assets/cars/honda-civic.jpg",
-                    stock: { horsepower: 158, zeroTo60: 8.2, topSpeed: 130, mechanicalStress: 22 }
+                    stock: { horsepower: 158, zeroTo60: 8.5, topSpeed: 125, mechanicalStress: 20 }
                 },
                 "ford-mustang": {
-                    name: "Ford Mustang",
+                    key: "mustang",
+                    name: "Ford Mustang GT",
                     image: "assets/cars/ford-mustang.jpg",
-                    stock: { horsepower: 450, zeroTo60: 4.2, topSpeed: 155, mechanicalStress: 38 }
+                    stock: { horsepower: 460, zeroTo60: 3.9, topSpeed: 163, mechanicalStress: 25 }
                 },
                 "bugatti-chiron": {
+                    key: "chiron",
                     name: "Bugatti Chiron",
                     image: "assets/cars/bugatti-chiron.jpg",
-                    stock: { horsepower: 1479, zeroTo60: 2.4, topSpeed: 261, mechanicalStress: 62 }
+                    stock: { horsepower: 1500, zeroTo60: 2.3, topSpeed: 304, mechanicalStress: 35 }
                 },
                 "lamborghini-aventador": {
+                    key: "aventador",
                     name: "Lamborghini Aventador",
                     image: "assets/cars/lamborghini-aventador.jpg",
-                    stock: { horsepower: 769, zeroTo60: 2.8, topSpeed: 217, mechanicalStress: 48 }
+                    stock: { horsepower: 740, zeroTo60: 2.8, topSpeed: 217, mechanicalStress: 30 }
                 },
                 "ferrari-sf90": {
+                    key: "sf90",
                     name: "Ferrari SF90 Stradale",
                     image: "assets/cars/ferrari-sf90.jpg",
-                    stock: { horsepower: 986, zeroTo60: 2.5, topSpeed: 211, mechanicalStress: 46 }
+                    stock: { horsepower: 986, zeroTo60: 2.5, topSpeed: 211, mechanicalStress: 30 }
                 },
                 "ford-model-t": {
+                    key: "modelT",
                     name: "Ford Model T",
                     image: "assets/cars/ford-model-t.jpg",
-                    stock: { horsepower: 20, zeroTo60: 28.0, topSpeed: 42, mechanicalStress: 12 }
+                    stock: { horsepower: 20, zeroTo60: 22.0, topSpeed: 45, mechanicalStress: 15 }
                 },
                 "chevrolet-bel-air": {
+                    key: "belAir",
                     name: "Chevrolet Bel Air",
                     image: "assets/cars/chevrolet-bel-air.jpg",
-                    stock: { horsepower: 162, zeroTo60: 12.0, topSpeed: 100, mechanicalStress: 27 }
+                    stock: { horsepower: 162, zeroTo60: 11.0, topSpeed: 100, mechanicalStress: 22 }
                 },
                 "volkswagen-beetle": {
+                    key: "beetle",
                     name: "Volkswagen Beetle",
                     image: "assets/cars/volkswagen-beetle.jpg",
-                    stock: { horsepower: 53, zeroTo60: 19.0, topSpeed: 80, mechanicalStress: 18 }
+                    stock: { horsepower: 53, zeroTo60: 15.0, topSpeed: 78, mechanicalStress: 18 }
                 }
             };
 
             const labels = {
-                ecuStage: { stock: "Stock", "stage-1": "Stage 1", "stage-2": "Stage 2", "stage-3": "Stage 3" },
-                forcedInduction: { none: "Naturally aspirated", turbo: "Turbocharged", supercharger: "Supercharged" },
-                aerodynamics: { street: "Street", sport: "Sport", track: "Track" },
-                weightReduction: { stock: "Stock weight", light: "Lightened", competition: "Competition" }
+                ecuStage: { stock: "Stock", "stage-1": "Stage 1 (+12%)", "stage-2": "Stage 2 (+25%)", "stage-3": "Race Map (+40%)" },
+                forcedInduction: { none: "Naturally aspirated", turbo: "Street Turbo (+15%)", supercharger: "Twin-Turbo (+35%)" },
+                aerodynamics: { street: "Street", sport: "Aero Kit", track: "Track Wing" },
+                weightReduction: { stock: "Stock weight", light: "Mild (-150 lbs)", competition: "Stripped (-400 lbs)" }
+            };
+
+            // Mapping from Replit UI values to Mistral TuningEngine keys
+            const modEngineMap = {
+                ecuStage: { stock: "stock", "stage-1": "stage1", "stage-2": "stage2", "stage-3": "raceMap" },
+                forcedInduction: { none: "none", turbo: "streetTurbo", supercharger: "twinTurbo" },
+                aerodynamics: { street: "stock", sport: "aeroKit", track: "aeroKit" },
+                weightReduction: { stock: "stock", light: "mild", competition: "track" }
             };
 
             let selectedCarId = "toyota-camry";
-            let currentTunedSpecs = null;
+            let currentPayload = null;
 
             const getOptions = () => ({
                 ecuStage: document.querySelector('input[name="ecuStage"]:checked').value,
@@ -343,28 +360,6 @@
                 aerodynamics: document.querySelector('input[name="aerodynamics"]:checked').value,
                 weightReduction: document.querySelector('input[name="weightReduction"]:checked').value
             });
-
-            const numberFrom = (value, fallback) => {
-                const number = Number(value);
-                return Number.isFinite(number) ? number : fallback;
-            };
-
-            const readSpec = (specs, names, fallback) => {
-                for (const name of names) {
-                    if (specs && specs[name] !== undefined) return numberFrom(specs[name], fallback);
-                }
-                return fallback;
-            };
-
-            const normalizeSpecs = (raw, stock) => {
-                const result = raw && (raw.tunedSpecs || raw.tuned || raw.specs || raw);
-                return {
-                    horsepower: readSpec(result, ["horsepower", "hp", "Horsepower"], stock.horsepower),
-                    zeroTo60: readSpec(result, ["zeroTo60", "zero_to_60", "acceleration", "zeroToSixty"], stock.zeroTo60),
-                    topSpeed: readSpec(result, ["topSpeed", "top_speed", "maxSpeed"], stock.topSpeed),
-                    mechanicalStress: Math.max(0, Math.min(100, readSpec(result, ["mechanicalStress", "stress", "stressLevel"], stock.mechanicalStress)))
-                };
-            };
 
             const setText = (id, value) => {
                 const element = document.getElementById(id);
@@ -390,80 +385,114 @@
                 setText("stock-stress", `${Math.round(stock.mechanicalStress)}%`);
                 setText("tuned-stress", `${Math.round(tuned.mechanicalStress)}%`);
                 setText("stress-delta", signed(tuned.mechanicalStress - stock.mechanicalStress, "%"));
-                document.getElementById("stock-stress-meter").style.width = `${stock.mechanicalStress}%`;
-                document.getElementById("tuned-stress-meter").style.width = `${tuned.mechanicalStress}%`;
+                
+                const stockMeter = document.getElementById("stock-stress-meter");
+                const tunedMeter = document.getElementById("tuned-stress-meter");
+                if (stockMeter) stockMeter.style.width = `${Math.min(100, Math.max(5, stock.mechanicalStress))}%`;
+                if (tunedMeter) tunedMeter.style.width = `${Math.min(100, Math.max(5, tuned.mechanicalStress))}%`;
             };
 
             const renderSelectedCar = () => {
                 const car = cars[selectedCarId];
-                document.getElementById("selected-car-image").src = car.image;
-                document.getElementById("selected-car-image").alt = car.name;
+                const img = document.getElementById("selected-car-image");
+                if (img) {
+                    img.src = car.image;
+                    img.alt = car.name;
+                }
                 setText("selected-car-name", car.name);
-                setText("car-description", `${car.stock.horsepower} horsepower · ${car.stock.topSpeed} mph`);
+                setText("car-description", `${car.stock.horsepower} horsepower · ${car.stock.topSpeed} mph baseline`);
             };
 
-            const calculate = async () => {
+            const calculate = () => {
                 const car = cars[selectedCarId];
                 const options = getOptions();
-                Object.keys(options).forEach((key) => {
-                    setText(`${key.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)}-value`, labels[key][options[key]]);
-                });
 
-                const payload = {
-                    car: car.name,
-                    carId: selectedCarId,
-                    stockSpecs: car.stock,
-                    options,
-                    tuning: options
-                };
+                // Update UI text labels
+                Object.keys(options).forEach((key) => {
+                    const kebab = key.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
+                    setText(`${kebab}-value`, labels[key][options[key]]);
+                });
 
                 const engine = window.TuningEngine;
                 if (!engine || typeof engine.calculateTunedSpecs !== "function") {
-                    currentTunedSpecs = payload;
                     renderDashboard(car.stock, car.stock);
-                    setText("stress-delta", "Engine unavailable");
+                    setText("stress-delta", "Tuning engine loading...");
                     return;
                 }
 
                 try {
-                    window.TuningEngine.currentConfiguration = payload;
-                    const result = await Promise.resolve(window.TuningEngine.calculateTunedSpecs(payload));
-                    const tuned = normalizeSpecs(result, car.stock);
-                    currentTunedSpecs = { ...payload, tunedSpecs: tuned };
+                    const mistralMods = {
+                        ecu: modEngineMap.ecuStage[options.ecuStage] || "stock",
+                        forcedInduction: modEngineMap.forcedInduction[options.forcedInduction] || "none",
+                        aerodynamics: modEngineMap.aerodynamics[options.aerodynamics] || "stock",
+                        weightReduction: modEngineMap.weightReduction[options.weightReduction] || "stock"
+                    };
+
+                    const result = engine.calculateTunedSpecs(car.key, mistralMods);
+                    const tuned = {
+                        horsepower: result.finalSpecs.finalHp,
+                        zeroTo60: result.finalSpecs.finalZeroToSixty,
+                        topSpeed: result.finalSpecs.finalTopSpeed,
+                        mechanicalStress: result.mechanicalStressScore
+                    };
+
                     renderDashboard(car.stock, tuned);
+
+                    // Prepare structured payload for AI Chief Mechanic
+                    currentPayload = {
+                        carName: car.name,
+                        stockSpecs: { hp: car.stock.horsepower, topSpeed: car.stock.topSpeed, zeroTo60: car.stock.zeroTo60 },
+                        tunedSpecs: { hp: tuned.horsepower, topSpeed: tuned.topSpeed, zeroTo60: tuned.zeroTo60, stressScore: tuned.mechanicalStress },
+                        selectedMods: {
+                            ecu: labels.ecuStage[options.ecuStage],
+                            forcedInduction: labels.forcedInduction[options.forcedInduction],
+                            aerodynamics: labels.aerodynamics[options.aerodynamics],
+                            weightReduction: labels.weightReduction[options.weightReduction]
+                        }
+                    };
                 } catch (error) {
-                    currentTunedSpecs = payload;
-                    renderDashboard(car.stock, car.stock);
-                    setText("stress-delta", "Calculation unavailable");
                     console.error("Tuning calculation error:", error);
+                    renderDashboard(car.stock, car.stock);
                 }
             };
 
             const runDiagnostic = async () => {
                 const button = document.getElementById("diagnostic-button");
                 const report = document.getElementById("diagnostic-report");
-                const showReport = (message, className) => {
-                    const paragraph = document.createElement("p");
-                    paragraph.className = className;
-                    paragraph.textContent = message;
-                    report.replaceChildren(paragraph);
-                };
                 button.disabled = true;
                 button.classList.add("is-loading");
-                report.innerHTML = '<p class="report-loading"><span class="loading-pulse"></span>Chief Mechanic is listening to the build...</p>';
+                report.innerHTML = '<p class="report-loading"><span class="loading-pulse"></span>Chief Mechanic is analyzing cylinder pressures and telemetry...</p>';
 
                 try {
+                    if (!currentPayload) calculate();
                     const response = await fetch("/api/tune-diagnostics", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(currentTunedSpecs)
+                        body: JSON.stringify(currentPayload)
                     });
                     const data = await response.json();
                     if (!response.ok) throw new Error(data.error || "Diagnostic request failed");
-                    const message = data.report || data.message || data.diagnostic || data.content || "Inspection complete.";
-                    showReport(String(message), "report-success");
+
+                    report.innerHTML = `
+                        <div class="report-body">
+                            <div class="report-topline">
+                                <span class="report-verdict">${data.diagnosticVerdict || 'Verified Build'}</span>
+                                <span class="report-rel-badge">${data.reliabilityScore || 85}% Reliability</span>
+                            </div>
+                            <div class="report-health">Engine Strain: <strong>${data.engineHealth || 'Nominal'}</strong></div>
+                            <p class="report-notes">${data.mechanicNotes || 'Engine operating smoothly across the curve.'}</p>
+                            <div class="report-acoustic-box">
+                                <span class="report-icon">🎧</span>
+                                <div><strong>Acoustic Profile:</strong> ${data.acousticProfile || 'Refined engine harmonics.'}</div>
+                            </div>
+                            <div class="report-track-box">
+                                <span class="report-icon">🏁</span>
+                                <div><strong>Track Advisory:</strong> ${data.trackRecommendation || 'Standard track check recommended.'}</div>
+                            </div>
+                        </div>
+                    `;
                 } catch (error) {
-                    showReport(`The Chief Mechanic could not complete the inspection. ${error.message}`, "report-error");
+                    report.innerHTML = `<p class="report-error">Chief Mechanic inspection error: ${error.message}</p>`;
                 } finally {
                     button.disabled = false;
                     button.classList.remove("is-loading");
@@ -471,13 +500,18 @@
             };
 
             document.addEventListener("DOMContentLoaded", () => {
-                document.getElementById("car-selector").addEventListener("change", (event) => {
-                    selectedCarId = event.target.value;
-                    renderSelectedCar();
-                    calculate();
-                });
+                const selector = document.getElementById("car-selector");
+                if (selector) {
+                    selector.addEventListener("change", (event) => {
+                        selectedCarId = event.target.value;
+                        renderSelectedCar();
+                        calculate();
+                    });
+                }
                 document.querySelectorAll('input[type="radio"]').forEach((input) => input.addEventListener("change", calculate));
-                document.getElementById("diagnostic-button").addEventListener("click", runDiagnostic);
+                const diagBtn = document.getElementById("diagnostic-button");
+                if (diagBtn) diagBtn.addEventListener("click", runDiagnostic);
+                
                 renderSelectedCar();
                 calculate();
             });

@@ -660,10 +660,89 @@ h2 {
 .report-container {
     min-height: 58px;
     margin-top: 14px;
-    padding: 13px 15px;
-    background: rgba(0, 0, 0, 0.18);
+    padding: 16px 18px;
+    background: rgba(0, 0, 0, 0.28);
     border: 1px solid var(--garage-line);
-    border-radius: 11px;
+    border-radius: 14px;
+}
+
+.report-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.report-topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--garage-line);
+}
+
+.report-verdict {
+    color: var(--garage-ink);
+    font-size: 0.96rem;
+    font-weight: 750;
+    letter-spacing: -0.01em;
+}
+
+.report-rel-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: rgba(99, 214, 154, 0.14);
+    border: 1px solid rgba(99, 214, 154, 0.3);
+    color: var(--garage-green);
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.report-health {
+    color: var(--garage-muted);
+    font-size: 0.78rem;
+}
+
+.report-health strong {
+    color: var(--garage-orange);
+}
+
+.report-notes {
+    color: var(--garage-ink);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.report-acoustic-box,
+.report-track-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+.report-acoustic-box {
+    background: rgba(41, 151, 255, 0.08);
+    border: 1px solid rgba(41, 151, 255, 0.18);
+    color: #b0d4ff;
+}
+
+.report-track-box {
+    background: rgba(246, 168, 94, 0.08);
+    border: 1px solid rgba(246, 168, 94, 0.2);
+    color: #ffd8b0;
+}
+
+.report-icon {
+    font-size: 1rem;
+    line-height: 1.2;
 }
 
 .report-container p {
